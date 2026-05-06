@@ -29,19 +29,22 @@ public class AuthService {
     private final MyTraineeRepository myTraineeRepository;
     private final StarterTraineeGrantService starterTraineeGrantService;
     private final JuminCryptoService juminCryptoService;
+    private final EmailSenderService emailSenderService;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public AuthService(MemberRepository memberRepository, MyTraineeRepository myTraineeRepository,
             StarterTraineeGrantService starterTraineeGrantService,
-            JuminCryptoService juminCryptoService) {
+            JuminCryptoService juminCryptoService,
+            EmailSenderService emailSenderService) {
         this.memberRepository = memberRepository;
         this.myTraineeRepository = myTraineeRepository;
         this.starterTraineeGrantService = starterTraineeGrantService;
         this.juminCryptoService = juminCryptoService;
+        this.emailSenderService = emailSenderService;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public String sendEmailCode(String email) {
+    public void sendEmailCode(String email) {
         String normalizedEmail = safeTrim(email);
         if (!normalizedEmail.matches(EMAIL_REGEX)) {
             throw new IllegalArgumentException("올바른 이메일 형식을 입력해주세요.");
@@ -53,10 +56,18 @@ public class AuthService {
         String code = String.format("%06d", new java.util.Random().nextInt(1_000_000));
         emailCodeStore.put(normalizedEmail, code);
 
+        // 실제 이메일 발송
+        try {
+            emailSenderService.sendVerificationCode(normalizedEmail, code);
+        } catch (Exception e) {
+            // SMTP 설정 문제/발송 실패 시 코드만 쌓이고 끝나면 UX가 너무 나빠서, 실패로 처리
+            emailCodeStore.remove(normalizedEmail);
+            throw new IllegalArgumentException("이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+        }
+
         System.out.println("=================================");
         System.out.println("[이메일 인증코드] " + normalizedEmail + " → " + code);
         System.out.println("=================================");
-        return code;
     }
 
     public boolean verifyEmailCode(String email, String code) {

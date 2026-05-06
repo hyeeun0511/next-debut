@@ -11,7 +11,7 @@
 
   <%@ include file="/WEB-INF/views/fragments/head-common.jspf" %>
   <link rel="stylesheet" href="<c:url value='/css/auth.css'/>" />
-  <script defer src="<c:url value='/js/signup.js'/>"></script>
+  <script defer src="<c:url value='/js/signup.js'/>?v=20260507_0204"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 

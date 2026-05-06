@@ -400,13 +400,12 @@
         const data = await res.json();
         if (data.sent) {
           if (codeArea) codeArea.style.display = '';
-          // 상단 알림(배너)에 인증번호 표시
+          // 상단 알림(배너)에 안내 표시 (인증번호 자체는 이메일로 발송)
           try {
             const toast = document.getElementById('emailCodeToast');
             if (toast) {
-              toast.textContent = '인증번호: ' + String(data.code || '');
+              toast.textContent = '인증번호를 이메일로 전송했습니다. 메일함을 확인해주세요.';
               toast.style.display = '';
-              // 사용자 시야 상단으로
               toast.scrollIntoView({ behavior: 'smooth', block: 'start' });
               setTimeout(() => { try { toast.style.display = 'none'; } catch (e) {} }, 12000);
             }
