@@ -400,7 +400,19 @@
         const data = await res.json();
         if (data.sent) {
           if (codeArea) codeArea.style.display = '';
-          setMsg(msgEl, 'CMD 콘솔에서 인증번호를 확인하세요.', null);
+          // 상단 알림(배너)에 인증번호 표시
+          try {
+            const toast = document.getElementById('emailCodeToast');
+            if (toast) {
+              toast.textContent = '인증번호: ' + String(data.code || '');
+              toast.style.display = '';
+              // 사용자 시야 상단으로
+              toast.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              setTimeout(() => { try { toast.style.display = 'none'; } catch (e) {} }, 12000);
+            }
+          } catch (e) {}
+
+          setMsg(msgEl, '인증번호를 입력하고 확인을 눌러주세요.', null);
           sendBtn.textContent = '재전송';
         } else {
           setMsg(msgEl, data.message || '전송에 실패했습니다.', false);

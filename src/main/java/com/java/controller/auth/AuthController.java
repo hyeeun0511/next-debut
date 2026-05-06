@@ -72,8 +72,8 @@ public class AuthController {
     @PostMapping("/api/auth/send-email-code")
     public ResponseEntity<Map<String, Object>> sendEmailCode(@RequestParam("email") String email) {
         try {
-            authService.sendEmailCode(email);
-            return ResponseEntity.ok(Map.of("sent", true));
+            String code = authService.sendEmailCode(email);
+            return ResponseEntity.ok(Map.of("sent", true, "code", code));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("sent", false, "message", e.getMessage()));
         }

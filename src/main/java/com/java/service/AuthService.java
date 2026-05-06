@@ -41,7 +41,7 @@ public class AuthService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public void sendEmailCode(String email) {
+    public String sendEmailCode(String email) {
         String normalizedEmail = safeTrim(email);
         if (!normalizedEmail.matches(EMAIL_REGEX)) {
             throw new IllegalArgumentException("올바른 이메일 형식을 입력해주세요.");
@@ -56,6 +56,7 @@ public class AuthService {
         System.out.println("=================================");
         System.out.println("[이메일 인증코드] " + normalizedEmail + " → " + code);
         System.out.println("=================================");
+        return code;
     }
 
     public boolean verifyEmailCode(String email, String code) {

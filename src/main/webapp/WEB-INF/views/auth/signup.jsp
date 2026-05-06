@@ -24,6 +24,9 @@
       <div class="toast toast--err"><c:out value="${error}"/></div>
     </c:if>
 
+    <!-- 이메일 인증번호: 전송 시 상단 알림으로 표시 -->
+    <div id="emailCodeToast" class="toast toast--ok" style="display:none;"></div>
+
     <div class="auth-card premium-glass" style="max-width: 620px;">
       <h2>회원가입</h2>
 
