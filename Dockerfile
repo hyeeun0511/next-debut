@@ -5,8 +5,8 @@ WORKDIR /app
 COPY . .
 
 RUN chmod +x ./gradlew
-RUN ./gradlew build -x test
+RUN ./gradlew clean bootWar -x test --no-daemon
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "java -jar build/libs/*.war"]
+CMD ["java", "-jar", "build/libs/projectx-0.0.1-SNAPSHOT.war"]
