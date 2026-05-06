@@ -10,8 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEXT DEBUT</title>
   <%@ include file="/WEB-INF/views/fragments/head-common.jspf" %>
-  <link rel="stylesheet" href="${ctx}/css/pages/main.css?v=main-reference-20260408u" />
-  <link rel="stylesheet" href="${ctx}/css/main.css?v=main-reference-modal-20260408b" />
+  <link rel="stylesheet" href="<c:url value='/css/pages/main.css'/>?v=main-reference-20260408u" />
+  <link rel="stylesheet" href="<c:url value='/css/main.css'/>?v=main-reference-modal-20260408b" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body.page-main-reference {

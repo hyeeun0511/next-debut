@@ -13,8 +13,8 @@
 <title>NEXT DEBUT — GAME</title>
 <%@ include file="/WEB-INF/views/fragments/head-common.jspf" %>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${ctx}/css/game.css?v=20260421_targeting_modal_totalavg_v1">
-<link rel="stylesheet" href="${ctx}/css/sim-status-presentation.css?v=20260403_sim_ui">
+<link rel="stylesheet" href="<c:url value='/css/game.css'/>?v=20260421_targeting_modal_totalavg_v1">
+<link rel="stylesheet" href="<c:url value='/css/sim-status-presentation.css'/>?v=20260403_sim_ui">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body class="is-game-route is-gameplay-screen">

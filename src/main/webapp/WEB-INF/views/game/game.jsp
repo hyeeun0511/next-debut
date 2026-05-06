@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#fff5f7"/>
 <title>UNITX — PLAY</title>
 <%@ include file="/WEB-INF/views/fragments/head-common.jspf" %>
-<link rel="stylesheet" href="${ctx}/css/pages/game-play.css" />
+<link rel="stylesheet" href="<c:url value='/css/pages/game-play.css'/>" />
 </head>
 <body class="page-main page-game-play min-h-screen flex flex-col">
 
