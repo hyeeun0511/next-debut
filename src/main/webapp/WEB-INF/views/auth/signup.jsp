@@ -147,7 +147,12 @@
 		      <button type="button" id="btnVerifyCode" class="btn-check">확인</button>
 		    </div>
 		  </div>
+
 		  <small id="email_verify_msg" class="help-msg"></small>
+      
+      <small class="help-msg" style="display:block; margin-top:6px; color:#c15ca9; font-weight:600;">
+        ※ 현재 테스트 서버에서는 인증번호가 이메일 대신 Render 콘솔(Logs)에 출력됩니다.
+      </small>
 		</div>
 
         <button type="submit" class="auth-submit" id="btnSignupSubmit" disabled>가입하기</button>
