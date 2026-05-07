@@ -34,7 +34,14 @@ public class EmailSenderService {
         msg.setTo(to);
         msg.setSubject("[NEXT DEBUT] 이메일 인증번호");
         msg.setText("안녕하세요.\n\n요청하신 이메일 인증번호는 아래와 같습니다.\n\n인증번호: " + code + "\n\n감사합니다.\nNEXT DEBUT");
-        mailSender.send(msg);
+        try {
+            mailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("====================================");
+            System.out.println("[NEXT DEBUT TEST] 이메일 전송 실패 - 테스트용 인증번호");
+            System.out.println("인증번호: " + code);
+            System.out.println("====================================");
+        }
     }
 }
 
