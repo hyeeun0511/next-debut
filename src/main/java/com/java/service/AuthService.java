@@ -44,32 +44,37 @@ public class AuthService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public void sendEmailCode(String email) {
+    public String sendEmailCode(String email) {
         String normalizedEmail = safeTrim(email);
+
         if (!normalizedEmail.matches(EMAIL_REGEX)) {
             throw new IllegalArgumentException("올바른 이메일 형식을 입력해주세요.");
         }
+
         if (memberRepository.existsByEmail(normalizedEmail)) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
 
-        String code = String.format("%06d", new java.util.Random().nextInt(1_000_000));
+        String code = String.format("%06d",
+                new java.util.Random().nextInt(1_000_000));
+
         emailCodeStore.put(normalizedEmail, code);
 
-        // 실제 이메일 발송
         try {
             emailSenderService.sendVerificationCode(normalizedEmail, code);
         } catch (Exception e) {
-            // SMTP 설정 문제/발송 실패 시 코드만 쌓이고 끝나면 UX가 너무 나빠서, 실패로 처리
             emailCodeStore.remove(normalizedEmail);
+
             System.out.println("====================================");
-            System.out.println("[NEXT DEBUT TEST] 이메일 전송 실패 - 테스트용 인증번호는 Render Logs에서 확인하세요.");
+            System.out.println("[NEXT DEBUT TEST] 이메일 전송 실패");
             System.out.println("====================================");
         }
 
         System.out.println("=================================");
         System.out.println("[이메일 인증코드] " + normalizedEmail + " → " + code);
         System.out.println("=================================");
+
+        return code;
     }
 
     public boolean verifyEmailCode(String email, String code) {
