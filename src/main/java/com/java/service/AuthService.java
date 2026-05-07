@@ -62,7 +62,9 @@ public class AuthService {
         } catch (Exception e) {
             // SMTP 설정 문제/발송 실패 시 코드만 쌓이고 끝나면 UX가 너무 나빠서, 실패로 처리
             emailCodeStore.remove(normalizedEmail);
-            throw new IllegalArgumentException("이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            System.out.println("====================================");
+            System.out.println("[NEXT DEBUT TEST] 이메일 전송 실패 - 테스트용 인증번호는 Render Logs에서 확인하세요.");
+            System.out.println("====================================");
         }
 
         System.out.println("=================================");
