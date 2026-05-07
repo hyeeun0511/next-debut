@@ -63,7 +63,6 @@ public class AuthService {
         try {
             emailSenderService.sendVerificationCode(normalizedEmail, code);
         } catch (Exception e) {
-            emailCodeStore.remove(normalizedEmail);
 
             System.out.println("====================================");
             System.out.println("[NEXT DEBUT TEST] 이메일 전송 실패");
@@ -82,7 +81,10 @@ public class AuthService {
         String normalizedCode = safeTrim(code);
         String stored = emailCodeStore.get(normalizedEmail);
 
-        if (stored != null && stored.equals(normalizedCode)) {
+        System.out.println("stored = [" + stored + "]");
+        System.out.println("input  = [" + normalizedCode + "]");
+
+        if (stored != null && stored.trim().equals(normalizedCode.trim())) {
             emailCodeStore.remove(normalizedEmail);
             if (memberRepository.existsByEmail(normalizedEmail)) {
                 throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
