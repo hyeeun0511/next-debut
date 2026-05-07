@@ -416,8 +416,23 @@
             }
           } catch (e) {}
 
-          setMsg(msgEl, '인증번호를 입력하고 확인을 눌러주세요.', null);
+          setMsg(
+            msgEl,
+            `인증번호 : ${data.code} (이 번호를 입력해주세요.)`,
+            true
+          );
           sendBtn.textContent = '재전송';
+          console.log("이메일 인증 응답:", data);
+
+          const preview = document.getElementById("emailCodePreview");
+
+          if (preview) {
+            if (data.code) {
+              preview.textContent = "인증번호 : " + data.code + "  ← 이 번호를 입력하세요.";
+            } else {
+              preview.textContent = "인증번호가 서버 응답에 없습니다. AuthController에서 code를 내려줘야 합니다.";
+            }
+          }
         } else {
           setMsg(msgEl, data.message || '전송에 실패했습니다.', false);
           sendBtn.textContent = '인증번호 전송';
