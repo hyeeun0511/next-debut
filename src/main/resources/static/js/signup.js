@@ -405,6 +405,11 @@
             const toast = document.getElementById('emailCodeToast');
             if (toast) {
               toast.textContent = '인증번호를 이메일로 전송했습니다. 메일함을 확인해주세요.';
+              const preview = document.getElementById("emailCodePreview");
+
+              if (preview && data.code) {
+                preview.textContent = "인증번호 : " + data.code + "  ← 이 번호를 입력하세요.";
+              }
               toast.style.display = '';
               toast.scrollIntoView({ behavior: 'smooth', block: 'start' });
               setTimeout(() => { try { toast.style.display = 'none'; } catch (e) {} }, 12000);
@@ -416,6 +421,8 @@
         } else {
           setMsg(msgEl, data.message || '전송에 실패했습니다.', false);
           sendBtn.textContent = '인증번호 전송';
+          const preview = document.getElementById("emailCodePreview");
+          if (preview) preview.textContent = "";
         }
       } catch (_) {
         setMsg(msgEl, '전송에 실패했습니다.', false);
